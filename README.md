@@ -1,1 +1,1 @@
-# E-ccomerce with Fast-stock
+# E-commerce with Fast-stock
