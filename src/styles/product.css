@@ -1,0 +1,133 @@
+.page-product {
+    width: 100%;
+    height: 100vh;
+    padding: 60px 30px 30px 30px;
+    background-color: #efefef;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container-page-product {
+    width: 80%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+
+.aside-page-product {
+    width: 300px;
+    height: 100%;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    padding: 10px; 
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.image-page-product {
+    object-fit: cover; 
+    border-radius: 10px;
+}
+
+.category-product {
+    font-size: 20px;
+    font-weight: 500;
+    color: #00a650;
+}
+
+.title-product {
+    color: #000;
+    
+}
+.details-product {
+    color: #202020;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.price-product {
+    font-size: 30px;
+    color: #101010;
+}
+
+.stock-product {
+    color: #101010;
+    font-size: 16px;
+}
+
+.container-btns-buy {
+    width: 100%;
+    display: flex; 
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-product {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+}
+
+.buy {
+    background-color: #0a66e7;
+    color: #fff;
+    border: 1px solid #0a66e7;
+    text-decoration: none;
+}
+
+.add {
+    border: 1px solid #0a66e7;
+    color: #0a66e7;
+    background-color: #0a66e736;
+}
+
+.message {
+    color: #00a650;
+    font-weight: 500; 
+    font-size: 16px;
+}
+
+@media (max-width: 768px) {
+    .container-page-product {
+        width: 100%;
+        align-items: flex-start;
+        gap: 14px;
+    }
+    .image-page-product {
+        width: 300px;
+        height: 300px;
+    }
+  }
+
+  @media (max-width: 425px) {
+    .page-product {
+        height: auto;
+        padding: 0;
+    }
+    .container-page-product {
+        padding-top: 60px;
+        flex-direction: column;
+    }
+
+    .aside-page-product {
+        width: 100%;
+        border: none;
+        gap: 8px;
+        padding: 0; 
+    }
+  }

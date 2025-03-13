@@ -1,0 +1,41 @@
+.header{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    position: fixed;
+    z-index: 999;
+    background-color: #0a66e7;
+}
+
+.title-header {
+    color: #fff;
+}
+
+.nav-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.link-nav {
+    color: #fff;
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px solid transparent;
+    transition: border .5s;
+
+}
+
+.link-nav:hover {
+    border-color: #fff; 
+    transition: border .5s;
+}
+
+.link-cart {
+    display: flex;
+    align-items: center;
+}
