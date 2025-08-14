@@ -35,14 +35,15 @@ export default function Slider({ products }: PropsSlider) {
             ({ id, picture, title, details }) =>
               id === index + 1 && (
                 <div key={id} className="card-slider">
-                  <img
+                  {picture && <img
                     src={picture}
-                    alt={title}
+                    alt={title || "Product image"}
                     width={400}
                     height={350}
                     className="image-slide"
                     loading="lazy"
-                  />
+                  />}
+                  
                   <a
                     className="link-card-slider"
                     href={`/product/${id}?product=${title}`}>
