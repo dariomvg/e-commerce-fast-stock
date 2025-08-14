@@ -1,11 +1,12 @@
 "use client";
 import { Product, UseCartTypes } from "@/types/types";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export const useCart = (): UseCartTypes => {
   const router = useRouter();
   const [message, setMessage] = useState<string>("");
+  const [redirectCart, setRedirectCart] = useState("")
   const [localProducts, setLocalProducts] = useState<Product[]>([]);
 
 
@@ -16,14 +17,14 @@ export const useCart = (): UseCartTypes => {
     }
   }, []);
 
-  const deleteProduct = (id: number) => {
+  const deleteProduct = useCallback((id: number) => {
     setLocalProducts(localProducts.filter((product) => product.id !== id));
-  };
+  }, [localProducts]);
 
-  const buyProduct = (id: number) => {
+  const buyProduct = useCallback((id: number) => {
     deleteProduct(id);
     router.push("/");
-  };
+  }, [deleteProduct, router]);
 
   const buyAllProducts = () => {
     setLocalProducts([]);
@@ -31,30 +32,27 @@ export const useCart = (): UseCartTypes => {
     router.push("/");
   };
 
-  const addProduct = (product: Product) => {
+  const addProduct = useCallback((product: Product) => {
     const productExist = localProducts.find((item) => item.id === product.id);
     if (productExist) {
       setMessage("Product already added");
-      setTimeout(() => {
-        setMessage("");
-      }, 3000);
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
     setLocalProducts([...localProducts, { ...product, unit: "1" }]);
 
     setMessage("Product added");
-    setTimeout(() => {
-      setMessage("");
-    }, 3000);
-  };
+    setRedirectCart("/cart")
+    setTimeout(() => setMessage(""), 3000);
+  }, [localProducts]);
 
-  const addUnit = (unit: string, id: number) => {
+  const addUnit = useCallback((unit: string, id: number) => {
     setLocalProducts(
       localProducts.map((product) =>
         product.id === id ? { ...product, unit } : product
       )
     );
-  };
+  }, [localProducts]);
 
   useEffect(() => {
     if (localProducts.length > 0) {
@@ -71,5 +69,6 @@ export const useCart = (): UseCartTypes => {
     message,
     addUnit,
     buyAllProducts,
+    redirectCart
   };
 };

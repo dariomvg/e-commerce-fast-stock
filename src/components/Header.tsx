@@ -12,7 +12,7 @@ export const Header = () => {
         </Link>
         <Link href="/cart" className="link-nav link-cart">
           Cart
-          <img src={iconCart.src} alt="cart icon" width={20} height={20} />
+          <img src={iconCart.src} loading="lazy" alt="cart icon" width={20} height={20} />
         </Link>
       </nav>
     </header>

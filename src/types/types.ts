@@ -4,12 +4,12 @@ export interface Product {
   stock: number;
   price: number;
   details: string;
-  picture: string;
+  picture: string | null;
   category: string;
   unit?: string;
 }
 
-export interface ProductApi {
+export interface ObjProductsCategories {
   categories: { id: number; category: string }[];
   products: Product[];
 }
@@ -40,13 +40,25 @@ export type Filter = {
 
 export interface UseProductTypes {
   findProduct: (title: string) => void;
-  product: Product | null;
   refreshProducts: () => void;
   filteredProducts: Product[];
   filters: Filter;
-  setFilters: (filters: Filter) => void;
   message: string;
   categories: Category[];
+  changeFilterCategory: (category: string) => void;
+  changeFilterPrice: ( min: number, max: number ) => void
+  productsFound: Product[];
+}
+
+export interface PropsSectionFilters {
+  findProduct: (title: string) => void;
+  categories: Category[];
+  refreshProducts: () => void;
+  filters: Filter;
+  changeFilterCategory: (category: string) => void;
+  changeFilterPrice: ( min: number, max: number ) => void;
+  message: string;
+  quantityProducts: number;
 }
 
 export interface UseCartTypes {
@@ -57,20 +69,13 @@ export interface UseCartTypes {
   message: string;
   addUnit: (unit: string, id: number) => void;
   buyAllProducts: () => void;
+  redirectCart: string
 }
 
-export interface PropsSectionFilters {
-  findProduct: (title: string) => void;
-  categories: Category[];
-  refreshProducts: () => void;
-  filters: Filter;
-  setFilters: (filters: Filter) => void;
-  message: string;
-  products: Product[];
-}
 
-export interface PropsSectionProducts {
+export interface PropsListProducts {
   products: Product[];
+  productsFound: Product[];
 }
 
 export interface PropsCardCart {

@@ -1,20 +1,17 @@
 "use client";
 import { getProducts, getUniqueProduct } from "@/libs/requests";
-import { Filter, Product, ProductApi, UseProductTypes } from "@/types/types";
-import { product_api } from "@/utils/product_api";
+import { Filter, ObjProductsCategories, Product, UseProductTypes } from "@/types/types";
+import { objFilters } from "@/utils/filters";
+import { objProductsCategories } from "@/utils/obj_products_categories";
 import { useEffect, useState } from "react";
 
 export const useProducts = (
   id: string | string[] | undefined
 ): UseProductTypes => {
-  const [saveProducts, setSaveProducts] = useState<ProductApi>(product_api);
-  const [product, setProduct] = useState<Product | null>(null);
-  const [products, setProducts] = useState<ProductApi>(product_api);
+  const [products, setProducts] = useState<ObjProductsCategories>(objProductsCategories);
+  const [productsFound, setProductsFound] = useState<Product[]>([]); 
   const [message, setMessage] = useState<string>("");
-  const [filters, setFilters] = useState<Filter>({
-    category: "All",
-    price: { min: 0, max: 6000 },
-  });
+  const [filters, setFilters] = useState<Filter>(objFilters);
 
   const filteredProducts = products.products.filter((product) => {
     const matchesCategory =
@@ -27,54 +24,47 @@ export const useProducts = (
   });
 
   const findProduct = async (title: string) => {
-    const foundProduct = products.products.find(
+    const foundProducts = products.products.find(
       (product) => product.title.toLowerCase() == title
     );
-    if (!foundProduct) {
+    if (!foundProducts) {
       setMessage("Product not found");
-      setTimeout(() => {
-        setMessage("");
-      }, 3000);
+      setTimeout(() => setMessage(""), 3000);
       return;
     }
-    setProducts({ ...products, products: [foundProduct] });
+    setProductsFound([foundProducts]);
   };
 
-  const refreshProducts = () => {
-    setProducts({ ...products, products: saveProducts.products });
+  const refreshProducts = async () => {
+    setProductsFound([]);
+    setFilters({ category: "All", price: { min: 0, max: 6000 } });
   };
 
   useEffect(() => {
     const getAllProducts = async () => {
-      const localProducts = await getProducts();
-      if (localProducts) {
-        setProducts(localProducts);
-        setSaveProducts(localProducts);
-      }
+      const allProducts = await getProducts();
+      if (allProducts.categories.length > 0 && allProducts.products.length > 0)
+        setProducts(allProducts);
     };
     getAllProducts();
   }, []);
 
-  useEffect(() => {
-    if (id) {
-      const getProduct = async () => {
-        const localProduct = await getUniqueProduct(id);
-        if (localProduct) {
-          setProduct(localProduct);
-        }
-      };
-      getProduct();
-    }
-  }, [id]);
+  const changeFilterCategory = (category: string) => {
+    setFilters({ ...filters, category });
+  };
+  const changeFilterPrice = (min: number, max: number) => {
+    setFilters({ ...filters, price: { min, max } });
+  };
 
   return {
     findProduct,
     categories: products.categories,
-    product,
     refreshProducts,
     filteredProducts,
     filters,
-    setFilters,
     message,
+    changeFilterCategory,
+    changeFilterPrice,
+    productsFound
   };
 };

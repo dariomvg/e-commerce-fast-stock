@@ -22,31 +22,8 @@
 }
 
 
-.section-products {
-  width: 100%;
-  display: flex;
-}
 
-.footer {
-  width: 100%;
-  padding: 30px 0;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-top: 1px solid #808080;
-}
 
-.title-footer {
-  font-size: 18px;
-  font-weight: bold;
-  color: #101010;
-}
-
-.copyright-footer {
-  font-size: 16px;
-  font-weight: 500;
-  color: #000;
-}
 
 
 @media (max-width: 1024px) {
@@ -64,10 +41,3 @@
   }
 }
 
-@media (max-width: 425px) {
-
-  .section-products {
-    flex-direction: column;
-    gap: 10px;
-  }
-}

@@ -1,3 +1,7 @@
+.container-card-product {
+    list-style: none; 
+}
+
 .card-product {
     width: 300px;
     height: 450px;

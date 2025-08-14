@@ -1,7 +1,11 @@
 .section-filters {
   width: 30%;
+  height: 100%;
   border-right: 1px solid #808080;
   padding: 10px;
+  display: flex; 
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .container-search {
@@ -95,6 +99,20 @@ font-weight: 500;
   color: #fff;
   font-weight: 500;
 }
+
+.container-footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-footer {
+  font-size: 16px;
+  font-weight: 500;
+  color: #101010;
+}
+
 
 @media (max-width: 425px) {
 

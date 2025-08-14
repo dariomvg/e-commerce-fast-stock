@@ -1,5 +1,6 @@
 "use client";
 import { CardCart } from "@/components/CardCart";
+import { Loader } from "@/components/Loader";
 import { useCart } from "@/hooks/useCart";
 import "@/styles/cart.css";
 
@@ -10,6 +11,10 @@ export default function Cart() {
     buyAllProducts,
     deleteProduct,
   } = useCart();
+
+  if(products.length < 0){
+    return <Loader />
+  }
 
   return (
     <section className="cart">

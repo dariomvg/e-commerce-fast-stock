@@ -9,13 +9,15 @@ export const CardCart = ({
   const { id, title, picture, price, details, unit } = product;
   return (
     <div className="card-cart">
-      <img
+      {picture && <img
         src={picture}
-        alt={title}
+        alt={title || "product image"}
         className="image-card-cart"
+        loading="lazy"
         width={100}
         height={100}
-      />
+      />}
+      
       <div className="box-card-cart">
         <h3 className="title-card-cart">{title}</h3>
         <p className="details-card-cart">{details}</p>

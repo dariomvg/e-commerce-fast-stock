@@ -1,51 +1,46 @@
 "use client";
+import { useEffect, useState } from "react";
 import { Loader } from "@/components/Loader";
-import { useProducts } from "@/hooks/useProducts";
 import { useParams } from "next/navigation";
-import { useCart } from "@/hooks/useCart";
-import "@/styles/product.css";
-import Link from "next/link";
+import { getUniqueProduct } from "@/libs/requests";
+import AsidePageProducts from "@/components/AsidePageProduct";
+import "@/styles/page-product.css";
+import { Product } from "@/types/types";
+import { objProduct } from "@/utils/product";
 
 export default function ProductId() {
   const { id } = useParams();
-  const { product } = useProducts(id);
-  const { addProduct, message } = useCart();
+  const [product, setProduct] = useState<Product>(objProduct);
+
+  useEffect(() => {
+    if (id !== undefined) {
+      const fetchProduct = async () => {
+        const localProduct = await getUniqueProduct(id);
+        if (localProduct) setProduct(localProduct);
+      };
+      fetchProduct();
+    }
+  }, [id]);
 
   return (
     <section className="page-product">
-      {product ? (
-        <div className="container-page-product">
-          <img
-            src={product.picture}
-            alt={product.title}
-            width={500}
-            height={500}
-            className="image-page-product"
-          />
-          <aside className="aside-page-product">
-            <p className="category-product">{product.category}</p>
-            <h1 className="title-product">{product.title}</h1>
-            <p className="details-product">{product.details}</p>
-            <p className="price-product">${product.price}</p>
-            <p className="stock-product">
-              Available stock: <b>{product.stock}</b>
-            </p>
-            <div className="container-btns-buy">
-              <Link href="/" className="btn-product buy">
-                Buy
-              </Link>
-              {message && <p className="message">{message}</p>}
-              <button
-                className="btn-product add"
-                onClick={() => addProduct(product)}>
-                Add to cart
-              </button>
-            </div>
-          </aside>
-        </div>
-      ) : (
-        <Loader />
-      )}
+      <div className="container-page-product">
+        {product.picture ? (
+          <>
+            <img
+              src={product.picture}
+              alt={product.title || "Product image"}
+              loading="lazy"
+              width={500}
+              height={500}
+              className="image-page-product"
+            />
+            <AsidePageProducts product={product} />
+          </>
+        ) : (
+          <Loader />
+        )}
+      </div>
     </section>
   );
 }
