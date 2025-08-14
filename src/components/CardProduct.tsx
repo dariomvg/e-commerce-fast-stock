@@ -7,14 +7,15 @@ export const CardProduct = ({ product }: PropsCardProduct) => {
   return (
     <li className="container-card-product">
       <Link href={`/product/${id}?product=${title}`} className="card-product">
-        <img
+      {picture && <img
           src={picture}
-          alt={title}
+          alt={title || "Product image"}
           width={280}
           height={280}
           className="picture-card"
           loading="lazy"
-        />
+        />}
+        
 
         <h3 className="title-card">{title}</h3>
         <div className="cont-price-stock">
