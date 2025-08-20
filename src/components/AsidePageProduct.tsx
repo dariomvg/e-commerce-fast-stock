@@ -1,6 +1,6 @@
-import "@/styles/aside-page-product.css";
+"use client"
 import { useCart } from "@/hooks/useCart";
-import "@/styles/page-product.css";
+import "@/styles/aside-page-product.css";
 import Link from "next/link";
 import { Product } from "@/types/types";
 

@@ -1,31 +1,20 @@
-"use client";
-import { useEffect, useState } from "react";
-import { Loader } from "@/components/Loader";
-import { useParams } from "next/navigation";
 import { getUniqueProduct } from "@/libs/requests";
 import AsidePageProducts from "@/components/AsidePageProduct";
 import "@/styles/page-product.css";
 import { Product } from "@/types/types";
-import { objProduct } from "@/utils/product";
 
-export default function ProductId() {
-  const { id } = useParams();
-  const [product, setProduct] = useState<Product>(objProduct);
+interface PropsParamsProduct {
+  params: Promise<{ id: string }>;
+}
 
-  useEffect(() => {
-    if (id !== undefined) {
-      const fetchProduct = async () => {
-        const localProduct = await getUniqueProduct(id);
-        if (localProduct) setProduct(localProduct);
-      };
-      fetchProduct();
-    }
-  }, [id]);
+export default async function ProductId({ params }: PropsParamsProduct) {
+  const { id } = await params;
+  const product: Product = await getUniqueProduct(id);
 
   return (
     <section className="page-product">
       <div className="container-page-product">
-        {product.picture ? (
+        {product.picture && (
           <>
             <img
               src={product.picture}
@@ -37,8 +26,6 @@ export default function ProductId() {
             />
             <AsidePageProducts product={product} />
           </>
-        ) : (
-          <Loader />
         )}
       </div>
     </section>
